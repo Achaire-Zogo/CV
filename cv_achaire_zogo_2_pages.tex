@@ -1,0 +1,192 @@
+\documentclass[12pt, a4paper]{article}
+
+% ─── Packages ───────────────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1.8cm, right=1.8cm, top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage{lmodern}
+\usepackage[expansion=false]{microtype}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{tikz}
+
+% ─── Colors ─────────────────────────────────────────────────────────────────
+\definecolor{primary}{HTML}{1A2E4A}
+\definecolor{accent}{HTML}{2980B9}
+\definecolor{lightgray}{HTML}{EEF2F7}
+\definecolor{textgray}{HTML}{444444}
+
+% ─── Hyperref ────────────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accent,
+  linkcolor=accent,
+  pdfauthor={Zogo Abouma Zozime Achaire},
+  pdftitle={CV -- Zogo Abouma Zozime Achaire}
+}
+
+% ─── Section style ───────────────────────────────────────────────────────────
+\titleformat{\section}
+  {\large\bfseries\color{primary}}
+  {}
+  {0pt}
+  {}
+  [\vspace{-4pt}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{2pt}]
+\titlespacing{\section}{0pt}{10pt}{4pt}
+
+% ─── Skill tag ───────────────────────────────────────────────────────────────
+\newcommand{\skilltag}[1]{%
+  \tikz[baseline=(n.base)]{%
+    \node[fill=lightgray, rounded corners=2pt, inner xsep=4pt, inner ysep=2pt,
+          text=primary, font=\footnotesize\bfseries](n){#1};%
+  }\,%
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% ════════════════════════════════════════════════════════════════════════════
+\begin{document}
+
+% ─── Header band ─────────────────────────────────────────────────────────────
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[primary] (current page.north west) rectangle
+    ([yshift=-4.8cm]current page.north east);
+\end{tikzpicture}
+
+\vspace{0.1cm}
+\begin{center}
+  {\fontsize{22}{28}\selectfont\bfseries\color{white}%
+    ZOGO ABOUMA ZOZIME ACHAIRE}\\[5pt]
+  {\large\color{accent!80!white}%
+    Etudiant en systeme d'information et Genie Logiciel}\\[8pt]
+  {\small\color{white}%
+    \textbf{T\'el.}~\href{tel:+237657515280}{+237 657 515 280}\quad
+    \textbf{Email}~\href{mailto:dylanabouma@gmail.com}{dylanabouma@gmail.com}\quad
+    \textbf{GitHub}~\href{https://github.com/Achaire-Zogo}{Achaire-Zogo}\quad
+    \textbf{LinkedIn}~\href{https://www.linkedin.com/in/achaire-zogo-b3b2331a9/}{achaire-zogo}%
+  }
+\end{center}
+\vspace{0.5cm}
+
+% ─── Profil ──────────────────────────────────────────────────────────────────
+\section{Profil}
+
+\textit{\'Etudiant en Master G\'enie Informatique, passionn\'e par le d\'eveloppement logiciel
+et les technologies DevOps. Je poss\`ede une exp\'erience pratique en d\'eveloppement d'applications
+web et mobiles, administration de serveurs Linux et int\'egration continue. Motiv\'e par l'apprentissage
+continu, je cherche \`a approfondir mes comp\'etences en architecture logicielle et \`a contribuer
+\`a des projets innovants tout en poursuivant mes \'etudes.}
+
+% ─── Formation ───────────────────────────────────────────────────────────────
+\section{Formation}
+
+\begin{tabularx}{\linewidth}{@{} l X r @{}}
+\textbf{Master 2}          & G\'enie Informatique --- Universit\'e de Yaound\'e I & En cour \\[3pt]
+\textbf{Master 1}          & G\'enie Informatique --- Universit\'e de Yaound\'e I & 2025 \\[3pt]
+\textbf{Stage}          & Developpement web MIT-SERVICE-SARL & 2024 \\[3pt]
+\textbf{Stage}          & Developpement web / mobile et IOT PIALOATECH & 2023 \\[3pt]
+\textbf{Licence 3}           & G\'enie Logiciel --- Universit\'e de Yaound\'e I     & 2022 \\[3pt]
+\textbf{Licence 3}           & Réseaux informatiques --- Universit\'e de Yaound\'e I     & 2021 \\[3pt]
+\textbf{Licence 2}           & Réseaux informatiques --- Universit\'e de Yaound\'e I  & 2020 \\[3pt]
+\textbf{Licence 1}           & Réseaux informatiques --- Universit\'e de Yaound\'e I  & 2019 \\[3pt]                    
+\textbf{Stage de commerce}           & JIN LIN JUAN   & 2018 \\[3pt]                    
+\textbf{Baccalaur\'eat D}  & College Frantz-Fanon, Yaound\'e                      & 2017 \\
+\end{tabularx}
+
+% ─── Mentoring ───────────────────────────────────────────────────────────────
+\section{Experience de Recherche}
+
+\noindent\textbf{2024}
+
+\vspace{4pt}
+\noindent Depuis 2024, je suis membre de l'\'equipe associ\'ee CNRS-Cameroun \href{https://mlns2.org/team-members/}{\textbf{MLNS2}} dirig\'ee par Pr Alain Tchana (Grenoble INP). Dans le cadre de cette \'equipe, je participe r\'eguli\`erement aux formations, s\'eminaires et comp\'etitions organis\'ees par l'\'equipe de Pr Alain Tchana.
+
+\vspace{4pt}
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt, topsep=2pt, parsep=0pt]
+  \item Participation comme \'etudiant volontaire \`a l'organisation de la conf\'erence/s\'eminaire \href{https://grenoble.iaounde.com/}{\textbf{IAound\'e}} en 2025 et 2026
+  \item Participation \`a la \textbf{Nuit de l'Informatique} (France) sur le site de Yaound\'e --- Mon \'equipe a remport\'e la premi\`ere place du projet \href{https://www.nuitdelinfo.com/inscription/defis/511}{\textbf{PaperLive}}
+  \item Suivi des cours de virtualisation, syst\`eme d'exploitation et R\'eseaux de Pr Alain Tchana, assur\'es lors de ses d\'eplacements au Cameroun et en ligne les weekends
+  \item Participation r\'eguli\`ere \`a distance aux talks scientifiques organis\'es par l'\'equipe KrakOS, notamment le \href{https://www.liglab.fr/fr/presentation/animation-scientifique/organisation-devenements/talk-cong-wang}{talk de Cong Wang sur le Multi-kernel}
+  \item Pr\'esentation lors du \href{https://helios.academy/ws1.html}{workshop IAound\'e}
+  \item Intervention en tant que volontaire sur les plateformes \href{https://abam.iaounde.com/}{\textbf{AMBAM IAound\'e}} et \href{https://betalab.academy/}{\textbf{BetaLab Academy}}
+\end{itemize}
+
+
+
+
+\newpage
+
+% ─── Experiences ─────────────────────────────────────────────────────────────
+\section{Exp\'eriences Professionnelles}
+
+\vspace{2pt}
+\noindent\begin{tabularx}{\linewidth}{@{}X r@{}}
+  {\bfseries\color{primary}Stage D\'eveloppeur web} &
+  {\small\textcolor{textgray}{2025 -}} \\
+  {\itshape\color{textgray}KAFINTECH, Canada (Remote)} & \\
+\end{tabularx}
+\begin{itemize}[leftmargin=1.4em, itemsep=1pt, topsep=2pt, parsep=0pt]
+  \item \href{https://izilifepay.com/}{\textbf{izilifepay.com}}~: Plateforme web de paiement mobile permettant les transactions financi\`eres s\'ecuris\'ees, la gestion de portefeuilles \'electroniques et l'int\'egration avec divers op\'erateurs de t\'el\'ecommunication (MTN, Orange, Moov). \textit{Impact~: Facilitation de l'acc\`es aux services financiers pour 10\,000+ utilisateurs et r\'eduction de 40\% des co\^uts de transaction}
+\end{itemize}
+
+
+
+\vspace{6pt}
+\noindent\begin{tabularx}{\linewidth}{@{}X r@{}}
+  {\bfseries\color{primary}Stage Developpeur web} &
+  {\small\textcolor{textgray}{2023}} \\
+  {\itshape\color{textgray}PiALOATECH, Yaound\'e, Cameroun} & \\
+\end{tabularx}
+\begin{itemize}[leftmargin=1.4em, itemsep=1pt, topsep=2pt, parsep=0pt]
+  \item \href{https://institut-visa.com/}{\textbf{institut-visa.com}}~: Plateforme web pour \'ecole de cours de langue allemande avec gestion des inscriptions, suivi des apprenants et service d'assistance visa avec paiement en ligne. \textit{Mission~: Cr\'eation d'une solution compl\`ete pour la gestion acad\'emique et administrative.} \textit{Impact~: Augmentation de 45\% des inscriptions et automatisation de 80\% des t\'aches administratives}
+  \item \href{https://aangaraa-pay.com/}{\textbf{aangaraa-pay.com}}~: Agr\'egateur de paiement facilitant l'int\'egration de moyens de paiement (Mobile Money, Orange Money, Visa, Mastercard) pour les entreprises avec API RESTful et webhooks. \textit{Mission~: D\'eveloppement d'une solution de paiement unifi\'ee pour les PME.}
+\end{itemize}
+
+% ─── Certifications ──────────────────────────────────────────────────────────
+\section{Certifications}
+
+\begin{itemize}[leftmargin=1.4em, itemsep=1pt, topsep=2pt, parsep=0pt]
+  \item \href{https://ude.my/UC-41275521-f919-4f97-8a8b-3cd39850f307}{\textbf{Java --- POO}}~: Programmation orient\'ee objet, design patterns
+  \item \href{https://ude.my/UC-28973039-144f-4a55-8ad1-03d228dbc5f5}{\textbf{Ethical Hacking}}~: Test de p\'en\'etration, s\'ecurit\'e r\'eseau
+  \item \href{https://ude.my/UC-01418bd3-a427-4926-8b06-74444c240ca3}{\textbf{PHP \& MySQL}}~: D\'eveloppement backend, bases de donn\'ees
+  \item \href{https://www.udemy.com/certificate/UC-81a3e6ea-8378-444d-a94c-38f8d830abe1/}{\textbf{DevOps}}~: CI/CD, Docker, GitLab CI
+\end{itemize}
+
+% ─── Langues ─────────────────────────────────────────────────────────────────
+\section{Langues}
+
+\begin{tabularx}{\linewidth}{@{} l X @{}}
+\textbf{Fran\c{c}ais} & Courant \`a l'\'ecrit et \`a l'oral \\[3pt]
+\textbf{Anglais}      & Niveau interm\'ediaire \\[3pt]
+\end{tabularx}
+
+% ─── Competences techniques ──────────────────────────────────────────────────
+\section{Comp\'etences Techniques}
+
+\begin{tabularx}{\linewidth}{@{} p{4cm} X @{}}
+\textbf{Langages}           & \skilltag{PHP} \skilltag{Python} \skilltag{JavaScript} \skilltag{Dart} \skilltag{Java} \skilltag{SQL} \\[4pt]
+\textbf{Frameworks}         & \skilltag{Laravel} \skilltag{Django} \skilltag{React} \skilltag{Flutter} \skilltag{Android SDK} \\[4pt]
+\textbf{DevOps / Infra}     & \skilltag{Linux (Ubuntu)} \skilltag{Docker} \skilltag{CI/CD} \skilltag{Serveurs Virtuels} \skilltag{Git} \\[4pt]
+\textbf{Bases de donn\'ees} & \skilltag{MySQL} \skilltag{PostgreSQL} \skilltag{SQLite} \\[4pt]
+\textbf{Architecture}       & \skilltag{Microservices} \skilltag{Monolithique} \skilltag{REST API} \\[4pt]
+\end{tabularx}
+
+% ─── Loisirs ─────────────────────────────────────────────────────────────────
+\section{Loisirs}
+
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt, topsep=2pt, parsep=0pt]
+  \item \textbf{Veille technologique}~: Suivi des nouvelles technologies, frameworks et tendances en d\'eveloppement logiciel
+  \item \textbf{Lecture}~: Articles scientifiques, blogs techniques et documentation sur l'architecture logicielle
+  \item \textbf{Participation \`a des hackathons}~: Comp\'etitions de programmation et \'ev\'enements tech
+\end{itemize}
+
+\end{document}
