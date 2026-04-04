@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achaire Zogo &mdash; Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #1A2E4A;
+      --accent: #2980B9;
+      --accent-light: #3498db;
+      --bg: #f8fafc;
+      --bg-card: #ffffff;
+      --text: #334155;
+      --text-light: #64748b;
+      --text-heading: #0f172a;
+      --border: #e2e8f0;
+      --gradient-1: linear-gradient(135deg, #1A2E4A 0%, #2980B9 100%);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,.07);
+      --shadow-lg: 0 10px 25px -3px rgba(0,0,0,.08);
+      --shadow-xl: 0 20px 50px -12px rgba(0,0,0,.15);
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text); background: var(--bg);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--accent-light); }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border); transition: box-shadow .3s;
+    }
+    .nav.scrolled { box-shadow: var(--shadow-md); }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .8rem 2rem;
+    }
+    .nav-logo { font-weight: 800; font-size: 1.2rem; color: var(--primary); letter-spacing: -.5px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      font-size: .85rem; font-weight: 500; color: var(--text-light);
+      position: relative; padding-bottom: 2px; transition: color .2s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 2px; background: var(--accent); transition: width .3s ease;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--primary); margin: 5px 0; transition: .3s; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: var(--gradient-1); position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(41,128,185,.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(26,46,74,.5) 0%, transparent 50%),
+        radial-gradient(circle at 60% 80%, rgba(41,128,185,.2) 0%, transparent 40%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: .04;
+      background-image:
+        linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content {
+      max-width: 1200px; margin: 0 auto; padding: 8rem 2rem 4rem;
+      position: relative; z-index: 2; width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.1); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.15);
+      padding: .4rem 1rem; border-radius: 50px;
+      font-size: .8rem; color: rgba(255,255,255,.85); margin-bottom: 1.5rem;
+    }
+    .hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+    .hero h1 { font-size: clamp(2.5rem,5vw,4.2rem); font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1rem; }
+    .hero h1 .accent { color: #60a5fa; }
+    .hero-subtitle { font-size: clamp(1rem,2vw,1.3rem); color: rgba(255,255,255,.75); max-width: 600px; line-height: 1.6; margin-bottom: 2rem; font-weight: 300; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .75rem 1.5rem; border-radius: 10px; font-weight: 600; font-size: .9rem; transition: all .2s; cursor: pointer; border: none; }
+    .btn-primary { background: #fff; color: var(--primary); box-shadow: 0 4px 15px rgba(0,0,0,.15); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,.2); color: var(--primary); }
+    .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.3); }
+    .btn-outline:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.5); color: #fff; }
+    .hero-stats { display: flex; gap: 3rem; }
+    .hero-stat .number { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -1px; }
+    .hero-stat .label { font-size: .8rem; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Sections */
+    .section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: .5rem; }
+    .section-title { font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 800; color: var(--text-heading); letter-spacing: -.5px; }
+    .section-desc { max-width: 600px; margin: .8rem auto 0; color: var(--text-light); font-size: .95rem; }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-text p { margin-bottom: 1rem; font-size: 1.05rem; color: var(--text); }
+    .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .highlight-card { background: var(--bg); padding: 1.2rem; border-radius: var(--radius); border: 1px solid var(--border); }
+    .highlight-card .icon { font-size: 1.5rem; margin-bottom: .5rem; }
+    .highlight-card h4 { font-size: .9rem; font-weight: 700; color: var(--text-heading); }
+    .highlight-card p { font-size: .8rem; color: var(--text-light); margin-top: .2rem; }
+    .about-info { background: var(--gradient-1); border-radius: var(--radius-lg); padding: 2.5rem; color: #fff; display: flex; flex-direction: column; gap: 1.5rem; }
+    .info-row .label { font-size: .75rem; text-transform: uppercase; letter-spacing: 1px; opacity: .6; }
+    .info-row .value { font-weight: 600; font-size: .95rem; }
+    .info-row .value a { color: #60a5fa; }
+    .info-row .value a:hover { color: #93c5fd; }
+
+    /* Skills */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+    .skill-category { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: transform .2s, box-shadow .2s; }
+    .skill-category:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .skill-category h3 { font-size: .95rem; font-weight: 700; color: var(--text-heading); margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .skill-tag { display: inline-block; padding: .35rem .8rem; background: #eef2f7; color: var(--primary); border-radius: 6px; font-size: .8rem; font-weight: 600; transition: all .2s; }
+    .skill-tag:hover { background: var(--accent); color: #fff; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--primary)); }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; }
+    .timeline-item::before { content: ''; position: absolute; left: -2rem; top: .5rem; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--accent); }
+    .timeline-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: transform .2s, box-shadow .2s; }
+    .timeline-card:hover { transform: translateX(5px); box-shadow: var(--shadow-lg); }
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .8rem; flex-wrap: wrap; gap: .5rem; }
+    .timeline-role { font-weight: 700; color: var(--text-heading); font-size: 1.05rem; }
+    .timeline-company { font-size: .85rem; color: var(--text-light); font-style: italic; }
+    .timeline-date { background: var(--gradient-1); color: #fff; padding: .25rem .75rem; border-radius: 50px; font-size: .75rem; font-weight: 600; white-space: nowrap; }
+    .project-item { padding: .6rem 0; border-bottom: 1px solid var(--border); font-size: .88rem; line-height: 1.6; }
+    .project-item:last-child { border-bottom: none; }
+    .project-item a { font-weight: 600; }
+    .project-item .mission { color: var(--text-light); font-style: italic; font-size: .82rem; }
+    .timeline-stack { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
+    .timeline-stack .skill-tag { font-size: .72rem; padding: .25rem .6rem; }
+
+    /* Project cards */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+    .project-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: transform .2s, box-shadow .2s; }
+    .project-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-xl); }
+    .project-card-gradient { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .project-card-body { padding: 1.5rem; }
+    .project-card-body h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-heading); margin-bottom: .5rem; }
+    .project-card-body p { font-size: .88rem; color: var(--text-light); line-height: 1.6; }
+    .project-card-footer { padding: .8rem 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .project-card-footer .tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .project-card-footer .tags span { font-size: .7rem; background: #eef2f7; color: var(--primary); padding: .2rem .5rem; border-radius: 4px; font-weight: 600; }
+    .project-link { font-size: .8rem; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: .3rem; }
+
+    /* Certs */
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .cert-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; display: flex; align-items: flex-start; gap: 1rem; transition: transform .2s, box-shadow .2s; }
+    .cert-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .cert-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--gradient-1); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .cert-info h4 { font-size: .9rem; font-weight: 700; color: var(--text-heading); }
+    .cert-info p { font-size: .78rem; color: var(--text-light); margin-top: .2rem; }
+
+    /* Formation */
+    .formation-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .formation-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; display: flex; align-items: center; gap: 1rem; transition: transform .2s; }
+    .formation-card:hover { transform: translateX(5px); }
+    .formation-year { background: var(--gradient-1); color: #fff; padding: .6rem .8rem; border-radius: 8px; font-weight: 700; font-size: .8rem; text-align: center; min-width: 75px; }
+    .formation-info h4 { font-size: .9rem; font-weight: 700; color: var(--text-heading); }
+    .formation-info p { font-size: .8rem; color: var(--text-light); }
+
+    /* Contact */
+    .contact { background: var(--gradient-1); color: #fff; padding: 5rem 2rem; text-align: center; }
+    .contact h2 { font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 800; margin-bottom: .5rem; }
+    .contact p { opacity: .7; font-size: 1rem; margin-bottom: 2rem; }
+    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    .contact-link { display: inline-flex; align-items: center; gap: .5rem; background: rgba(255,255,255,.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.15); padding: .7rem 1.3rem; border-radius: 10px; color: #fff; font-weight: 500; font-size: .9rem; transition: all .2s; }
+    .contact-link:hover { background: rgba(255,255,255,.2); color: #fff; transform: translateY(-2px); }
+    .footer { text-align: center; padding: 1.5rem 2rem; font-size: .8rem; color: var(--text-light); border-top: 1px solid var(--border); }
+
+    /* Animations */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #fff; padding: 1rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md); }
+      .nav-toggle { display: block; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-stats { gap: 1.5rem; }
+      .hero-stat .number { font-size: 1.5rem; }
+      .skills-grid, .projects-grid, .certs-grid, .formation-grid { grid-template-columns: 1fr; }
+      .timeline { padding-left: 1.5rem; }
+      .timeline-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">A<span>.</span>Zogo</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Profil</a></li>
+      <li><a href="#skills">Comp&eacute;tences</a></li>
+      <li><a href="#experience">Exp&eacute;riences</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#formation">Formation</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge fade-up"><span class="dot"></span> Disponible pour un stage / alternance</div>
+    <h1 class="fade-up">Zogo Abouma<br>Zozime <span class="accent">Achaire</span></h1>
+    <p class="hero-subtitle fade-up">&Eacute;tudiant en Master G&eacute;nie Informatique &mdash; D&eacute;veloppeur Full-Stack Web &amp; Mobile, passionn&eacute; par les architectures logicielles, le DevOps et l'innovation technologique.</p>
+    <div class="hero-actions fade-up">
+      <a href="#projects" class="btn btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        Voir mes projets
+      </a>
+      <a href="#contact" class="btn btn-outline">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Me contacter
+      </a>
+    </div>
+    <div class="hero-stats fade-up">
+      <div class="hero-stat"><div class="number">20+</div><div class="label">Projets livr&eacute;s</div></div>
+      <div class="hero-stat"><div class="number">4+</div><div class="label">Ann&eacute;es d'exp.</div></div>
+      <div class="hero-stat"><div class="number">9</div><div class="label">Certifications</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-tag">&Agrave; propos</span>
+      <h2 class="section-title">Profil</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p>&Eacute;tudiant en Master G&eacute;nie Informatique &agrave; l'Universit&eacute; de Yaound&eacute; I, passionn&eacute; par le d&eacute;veloppement logiciel et les technologies DevOps. Je poss&egrave;de une exp&eacute;rience pratique en d&eacute;veloppement d'applications web et mobiles, administration de serveurs Linux et int&eacute;gration continue.</p>
+        <p>Motiv&eacute; par l'apprentissage continu, je cherche &agrave; approfondir mes comp&eacute;tences en architecture logicielle et &agrave; contribuer &agrave; des projets innovants. Membre de l'&eacute;quipe CNRS-Cameroun <a href="https://mlns2.org/team-members/" target="_blank">MLNS2</a>, dirig&eacute;e par Pr Alain Tchana (Grenoble INP).</p>
+        <div class="about-highlights">
+          <div class="highlight-card"><div class="icon">&#128187;</div><h4>Full-Stack</h4><p>Web &amp; Mobile</p></div>
+          <div class="highlight-card"><div class="icon">&#9881;&#65039;</div><h4>DevOps</h4><p>CI/CD &amp; Docker</p></div>
+          <div class="highlight-card"><div class="icon">&#128218;</div><h4>Recherche</h4><p>&Eacute;quipe MLNS2 / CNRS</p></div>
+          <div class="highlight-card"><div class="icon">&#127942;</div><h4>Comp&eacute;titeur</h4><p>1&egrave;re place &mdash; Nuit de l'Info</p></div>
+        </div>
+      </div>
+      <div class="about-info fade-up">
+        <div class="info-row"><div><div class="label">Nom complet</div><div class="value">Zogo Abouma Zozime Achaire</div></div></div>
+        <div class="info-row"><div><div class="label">Formation</div><div class="value">Master 2 G&eacute;nie Informatique &mdash; UY1</div></div></div>
+        <div class="info-row"><div><div class="label">T&eacute;l&eacute;phone</div><div class="value"><a href="tel:+237657515280">+237 657 515 280</a></div></div></div>
+        <div class="info-row"><div><div class="label">Email</div><div class="value"><a href="mailto:dylanabouma@gmail.com">dylanabouma@gmail.com</a></div></div></div>
+        <div class="info-row"><div><div class="label">GitHub</div><div class="value"><a href="https://github.com/Achaire-Zogo" target="_blank">github.com/Achaire-Zogo</a></div></div></div>
+        <div class="info-row"><div><div class="label">LinkedIn</div><div class="value"><a href="https://www.linkedin.com/in/achaire-zogo-b3b2331a9/" target="_blank">achaire-zogo</a></div></div></div>
+        <div class="info-row"><div><div class="label">Langues</div><div class="value">Fran&ccedil;ais (courant) &bull; Anglais (interm&eacute;diaire)</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section class="section" id="skills" style="background:#fff;">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-tag">Savoir-faire</span>
+      <h2 class="section-title">Comp&eacute;tences Techniques</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category fade-up"><h3>&#128296; Langages</h3><div class="skill-tags"><span class="skill-tag">PHP</span><span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Dart</span><span class="skill-tag">Java</span><span class="skill-tag">SQL</span></div></div>
+      <div class="skill-category fade-up"><h3>&#128640; Frameworks</h3><div class="skill-tags"><span class="skill-tag">Laravel</span><span class="skill-tag">Django</span><span class="skill-tag">React</span><span class="skill-tag">Flutter</span><span class="skill-tag">Android SDK</span></div></div>
+      <div class="skill-category fade-up"><h3>&#9881;&#65039; DevOps / Infra</h3><div class="skill-tags"><span class="skill-tag">Linux (Ubuntu)</span><span class="skill-tag">Docker</span><span class="skill-tag">CI/CD</span><span class="skill-tag">Serveurs Virtuels</span><span class="skill-tag">Git</span></div></div>
+      <div class="skill-category fade-up"><h3>&#128451;&#65039; Bases de donn&eacute;es</h3><div class="skill-tags"><span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">SQLite</span></div></div>
+      <div class="skill-category fade-up"><h3>&#127959;&#65039; Architecture</h3><div class="skill-tags"><span class="skill-tag">Microservices</span><span class="skill-tag">Monolithique</span><span class="skill-tag">REST API</span><span class="skill-tag">MVC</span></div></div>
+      <div class="skill-category fade-up"><h3>&#128274; S&eacute;curit&eacute;</h3><div class="skill-tags"><span class="skill-tag">Ethical Hacking</span><span class="skill-tag">Hardening Linux</span><span class="skill-tag">SSL/TLS</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section class="section" id="experience">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-tag">Parcours</span>
+      <h2 class="section-title">Exp&eacute;riences Professionnelles</h2>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div><div class="timeline-role">Stage D&eacute;veloppeur Web</div><div class="timeline-company">KAFINTECH, Canada (Remote)</div></div>
+            <span class="timeline-date">2025 &mdash; Pr&eacute;sent</span>
+          </div>
+          <div class="timeline-projects">
+            <div class="project-item"><a href="https://izilifepay.com/" target="_blank">izilifepay.com</a> &mdash; Plateforme web de paiement mobile : transactions s&eacute;curis&eacute;es, portefeuilles &eacute;lectroniques, int&eacute;gration MTN, Orange, Moov.<div class="mission">Impact : 10 000+ utilisateurs, r&eacute;duction de 40% des co&ucirc;ts de transaction</div></div>
+            <div class="project-item"><a href="https://play.google.com/store/apps/details?id=com.easylifepay.easy_life_pay" target="_blank">Izi Life Pay</a> (<a href="https://apps.apple.com/us/app/izi-life-pay/id6754771394" target="_blank">iOS</a>) &mdash; App mobile de paiement : transfert d'argent, factures, recharge, authentification biom&eacute;trique.<div class="mission">Impact : 95% de satisfaction, +60% transactions quotidiennes</div></div>
+          </div>
+          <div class="timeline-stack"><span class="skill-tag">PHP</span><span class="skill-tag">Laravel</span><span class="skill-tag">MySQL</span><span class="skill-tag">Python</span><span class="skill-tag">React</span><span class="skill-tag">DevOps</span></div>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div><div class="timeline-role">Stage D&eacute;veloppeur Web &amp; Mobile</div><div class="timeline-company">MIT-Service SARL, Yaound&eacute;, Cameroun</div></div>
+            <span class="timeline-date">2024</span>
+          </div>
+          <div class="timeline-projects">
+            <div class="project-item"><a href="https://mit-service-sarl.cm/" target="_blank">mit-service-sarl.cm</a> &mdash; Site institutionnel MVC, responsive, SEO.<div class="mission">Mission : Refonte compl&egrave;te. Impact : +70% trafic organique</div></div>
+            <div class="project-item"><a href="https://elearning.provaressc.org/" target="_blank">elearning.provaressc.org</a> &mdash; Plateforme e-learning : cours, quiz, suivi apprenants, dashboard analytique.</div>
+            <div class="project-item"><a href="https://rdv.provaressc.org/" target="_blank">rdv.provaressc.org</a> &mdash; Prise de RDV vaccination : notifications SMS/Email, gestion calendrier.<div class="mission">Impact : +50% optimisation horaires, -60% temps d'attente</div></div>
+            <div class="project-item"><a href="https://cnts-nbts.cm/" target="_blank">cnts-nbts.cm</a> &mdash; Gestion du Centre National de Transfusion Sanguine.</div>
+            <div class="project-item"><a href="https://fmsb.uninet.cm/" target="_blank">fmsb.uninet.cm</a> &mdash; Gestion acad&eacute;mique : inscriptions, notes, emplois du temps.</div>
+          </div>
+          <div class="timeline-stack"><span class="skill-tag">Laravel</span><span class="skill-tag">MySQL</span><span class="skill-tag">Python</span><span class="skill-tag">React</span><span class="skill-tag">DevOps</span><span class="skill-tag">CI/CD</span></div>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div><div class="timeline-role">Stage D&eacute;veloppeur Web</div><div class="timeline-company">PiALOATECH, Yaound&eacute;, Cameroun</div></div>
+            <span class="timeline-date">2023</span>
+          </div>
+          <div class="timeline-projects">
+            <div class="project-item"><a href="https://institut-visa.com/" target="_blank">institut-visa.com</a> &mdash; &Eacute;cole de langue allemande : inscriptions, suivi, assistance visa, paiement.<div class="mission">Impact : +45% inscriptions, 80% automatisation admin</div></div>
+            <div class="project-item"><a href="https://aangaraa-pay.com/" target="_blank">aangaraa-pay.com</a> &mdash; Agr&eacute;gateur de paiement : MoMo, Orange Money, Visa, Mastercard. API RESTful.</div>
+            <div class="project-item"><a href="https://kufulis.com/" target="_blank">kufulis.com</a> &mdash; Vitrine digitale pour la serrure connect&eacute;e Kufuli.</div>
+            <div class="project-item"><a href="https://apps.apple.com/us/app/aangaraa-eats/id6444290900" target="_blank">Aangaraa Eats (iOS)</a> &mdash; Commande &amp; livraison de repas : g&eacute;olocalisation, paiement int&eacute;gr&eacute;.</div>
+            <div class="project-item"><a href="https://apps.apple.com/us/app/kufuli-pro/id1628880922" target="_blank">Kufuli Pro (iOS)</a> &mdash; App Flutter pour contr&ocirc;le de serrure connect&eacute;e via Bluetooth/WiFi.</div>
+          </div>
+          <div class="timeline-stack"><span class="skill-tag">PHP</span><span class="skill-tag">Flutter</span><span class="skill-tag">React</span><span class="skill-tag">MySQL</span><span class="skill-tag">Python</span></div>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div><div class="timeline-role">Stage D&eacute;veloppeur Web</div><div class="timeline-company">Kairos, Yaound&eacute;, Cameroun</div></div>
+            <span class="timeline-date">2022</span>
+          </div>
+          <div class="timeline-projects">
+            <div class="project-item"><a href="https://www.kairos.cm/" target="_blank">kairos.cm</a> &mdash; Site institutionnel avec design moderne et portfolio interactif.<div class="mission">Impact : +60% demandes de devis, SEO am&eacute;lior&eacute;</div></div>
+            <div class="project-item"><strong>Kairos KM</strong> &mdash; Knowledge management : gestion documentaire, versioning, RBAC.<div class="mission">Impact : 10 000+ documents centralis&eacute;s, -50% temps de recherche</div></div>
+            <div class="project-item"><strong>Kairos Monitor</strong> &mdash; Monitoring temps r&eacute;el : dashboards, alertes, supervision serveurs.</div>
+            <div class="project-item"><strong>Kairos Transcribe</strong> &mdash; Transcription audio vers texte multi-langues.<div class="mission">Impact : &Eacute;conomie de 20h/semaine</div></div>
+            <div class="project-item"><strong>Kairos Scan</strong> &mdash; Num&eacute;risation et OCR de documents.</div>
+            <div class="project-item"><strong>Lucas &amp; Harmoni</strong> &mdash; Applications m&eacute;tiers pour automatisation interne.</div>
+          </div>
+          <div class="timeline-stack"><span class="skill-tag">PHP</span><span class="skill-tag">Laravel</span><span class="skill-tag">MySQL</span><span class="skill-tag">Linux</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Projects Freelance -->
+<section class="section" id="projects" style="background:#fff;">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-tag">Freelance</span>
+      <h2 class="section-title">Projets Personnels</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card fade-up">
+        <div class="project-card-gradient" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">&#127891;</div>
+        <div class="project-card-body"><h3>Camschool</h3><p>Application mobile &eacute;ducative pour les &eacute;l&egrave;ves camerounais. Cours, exercices, quiz, suivi de progression et mode hors ligne.</p></div>
+        <div class="project-card-footer">
+          <div class="tags"><span>Flutter</span><span>Firebase</span></div>
+          <a href="https://play.google.com/store/apps/details?id=org.camschool.app" target="_blank" class="project-link">Google Play <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-card-gradient" style="background: linear-gradient(135deg, #0ea5e9, #06b6d4);">&#127758;</div>
+        <div class="project-card-body"><h3>Aquamapper</h3><p>Application mobile de cartographie des eaux souterraines. Utilise un voltm&egrave;tre Bluetooth pour la d&eacute;tection et la visualisation en temps r&eacute;el.</p></div>
+        <div class="project-card-footer">
+          <div class="tags"><span>Mobile</span><span>Bluetooth</span><span>IoT</span></div>
+          <span class="project-link" style="opacity:.5;">Projet priv&eacute;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Formation -->
+<section class="section" id="formation">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-tag">&Eacute;ducation</span>
+      <h2 class="section-title">Formation</h2>
+    </div>
+    <div class="formation-grid">
+      <div class="formation-card fade-up"><div class="formation-year">2025</div><div class="formation-info"><h4>Master 2 &mdash; G&eacute;nie Informatique</h4><p>Universit&eacute; de Yaound&eacute; I</p></div></div>
+      <div class="formation-card fade-up"><div class="formation-year">2024-25</div><div class="formation-info"><h4>Master 1 &mdash; G&eacute;nie Informatique</h4><p>Universit&eacute; de Yaound&eacute; I</p></div></div>
+      <div class="formation-card fade-up"><div class="formation-year">2022-23</div><div class="formation-info"><h4>Licence 3 &mdash; G&eacute;nie Logiciel</h4><p>Universit&eacute; de Yaound&eacute; I</p></div></div>
+      <div class="formation-card fade-up"><div class="formation-year">2021-22</div><div class="formation-info"><h4>Licence 3 &mdash; R&eacute;seaux Informatiques</h4><p>Universit&eacute; de Yaound&eacute; I</p></div></div>
+      <div class="formation-card fade-up"><div class="formation-year">2020-21</div><div class="formation-info"><h4>Licence 2 &mdash; R&eacute;seaux Informatiques</h4><p>Universit&eacute; de Yaound&eacute; I</p></div></div>
+      <div class="formation-card fade-up"><div class="formation-year">2019-20</div><div class="formation-info"><h4>Licence 1 &mdash; R&eacute;seaux Informatiques</h4><p>Universit&eacute; de Yaound&eacute; I</p></div></div>
+      <div class="formation-card fade-up"><div class="formation-year">2017</div><div class="formation-info"><h4>Baccalaur&eacute;at D</h4><p>Coll&egrave;ge Frantz-Fanon, Yaound&eacute;</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section class="section" id="certifications" style="background:#fff;">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-tag">Apprentissage</span>
+      <h2 class="section-title">Certifications</h2>
+    </div>
+    <div class="certs-grid">
+      <a href="https://ude.my/UC-41275521-f919-4f97-8a8b-3cd39850f307" target="_blank" class="cert-card fade-up" style="color:inherit;"><div class="cert-icon">&#9749;</div><div class="cert-info"><h4>Java &mdash; POO</h4><p>Design patterns, h&eacute;ritage, polymorphisme</p></div></a>
+      <a href="https://ude.my/UC-28973039-144f-4a55-8ad1-03d228dbc5f5" target="_blank" class="cert-card fade-up" style="color:inherit;"><div class="cert-icon">&#128274;</div><div class="cert-info"><h4>Ethical Hacking</h4><p>Pentest, s&eacute;curit&eacute; r&eacute;seau, cryptographie</p></div></a>
+      <a href="https://ude.my/UC-01418bd3-a427-4926-8b06-74444c240ca3" target="_blank" class="cert-card fade-up" style="color:inherit;"><div class="cert-icon">&#128451;&#65039;</div><div class="cert-info"><h4>PHP &amp; MySQL</h4><p>Backend, SQL optimis&eacute;, proc&eacute;dures stock&eacute;es</p></div></a>
+      <a href="https://www.udemy.com/certificate/UC-81a3e6ea-8378-444d-a94c-38f8d830abe1/" target="_blank" class="cert-card fade-up" style="color:inherit;"><div class="cert-icon">&#9881;&#65039;</div><div class="cert-info"><h4>DevOps</h4><p>CI/CD, Docker, GitLab CI, monitoring</p></div></a>
+      <a href="https://www.udemy.com/certificate/UC-a31618cb-7a18-4643-8fe1-c991f1b5ec6a/" target="_blank" class="cert-card fade-up" style="color:inherit;"><div class="cert-icon">&#128241;</div><div class="cert-info"><h4>Android App Development</h4><p>MVVM, Material Design, APIs Android</p></div></a>
+      <a href="https://www.udemy.com/certificate/UC-70efe319-c87c-4263-8373-7bc4b32f9cf7/" target="_blank" class="cert-card fade-up" style="color:inherit;"><div class="cert-icon">&#128293;</div><div class="cert-info"><h4>Laravel Framework</h4><p>MVC, Eloquent ORM, API RESTful</p></div></a>
+      <a href="https://www.udemy.com/certificate/UC-a563b0dc-418f-45a0-b526-267918b07762/" target="_blank" class="cert-card fade-up" style="color:inherit;"><div class="cert-icon">&#128421;&#65039;</div><div class="cert-info"><h4>Admin Serveur Virtuel</h4><p>Linux, firewall, SSL/TLS, monitoring</p></div></a>
+      <a href="https://www.udemy.com/certificate/UC-e4422023-18ea-48d9-a0de-1cc5085914dc/" target="_blank" class="cert-card fade-up" style="color:inherit;"><div class="cert-icon">&#128013;</div><div class="cert-info"><h4>Django (Python)</h4><p>Framework MTV, ORM, d&eacute;ploiement</p></div></a>
+      <a href="https://www.udemy.com/certificate/UC-93fed8bd-bd65-4b4b-8e0d-f3ea1fe71ed5/" target="_blank" class="cert-card fade-up" style="color:inherit;"><div class="cert-icon">&#128038;</div><div class="cert-info"><h4>Flutter (Dart)</h4><p>Cross-platform, state management</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <h2 class="fade-up">Travaillons ensemble</h2>
+  <p class="fade-up">N'h&eacute;sitez pas &agrave; me contacter pour toute opportunit&eacute; de collaboration.</p>
+  <div class="contact-links fade-up">
+    <a href="mailto:dylanabouma@gmail.com" class="contact-link">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      dylanabouma@gmail.com
+    </a>
+    <a href="tel:+237657515280" class="contact-link">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.12.8.3 1.6.56 2.36a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.76.26 1.56.44 2.36.56A2 2 0 0122 16.92z"/></svg>
+      +237 657 515 280
+    </a>
+    <a href="https://github.com/Achaire-Zogo" target="_blank" class="contact-link">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/achaire-zogo-b3b2331a9/" target="_blank" class="contact-link">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+  </div>
+</section>
+
+<footer class="footer">&copy; 2025 Achaire Zogo &mdash; Portfolio. Tous droits r&eacute;serv&eacute;s.</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+  document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+  document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
+  const observer = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY + 100;
+    sections.forEach(s => {
+      const link = document.querySelector(`.nav-links a[href="#${s.id}"]`);
+      if(link) link.classList.toggle('active', y >= s.offsetTop && y < s.offsetTop + s.offsetHeight);
+    });
+  });
+</script>
+</body>
+</html>

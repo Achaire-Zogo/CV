@@ -1,0 +1,7 @@
+services:
+  portfolio:
+    build: .
+    container_name: achaire-portfolio
+    ports:
+      - "8090:80"
+    restart: unless-stopped
